@@ -7,12 +7,9 @@ class Routes extends \Dsc\Routes\Group
     {
         $this->setDefaults(array(
             'namespace' => '\Striper\Admin\Controllers',
-            'url_prefix' => '/stripe'
+            'url_prefix' => '/admin/stripe'
         ));
         
-        $this->add('', 'GET', array(
-            'controller' => 'Settings',
-            'action' => 'index'
-        ));
+        $this->addSettingsRoutes();
     }
 }
