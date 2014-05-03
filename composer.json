@@ -16,7 +16,7 @@
     "require": {
         "php": ">=5.4.0",
         "dioscouri/f3-lib": "dev-master",
-        "stripe/stripe-php": "dev-master"
+        "stripe/stripe-php": ">=v1.13.0"
     },
     "autoload": {
          "psr-0": {
