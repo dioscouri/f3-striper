@@ -1,28 +1,26 @@
 {
-    "name": "dioscouri/f3-stripe",
+    "name": "dioscouri/f3-striper",
     "type": "component",
     "description": "Stripe component for the F3-framework",
     "keywords": ["F3","RAD", "Stripe", "CMS"],
-    "homepage": "https://github.com/dioscouri/f3-stripe",
+    "homepage": "https://github.com/dioscouri/f3-striper",
     "license": "GPL",
     "authors": [
         {
-            "name": "Chris French",
-            "email": "chris@ammonitenetworks.com",
-            "homepage": "http://ammonitenetworks.com",
+            "name": "Rafael Diaz-Tushman",
+            "email": "rdiaztushman@dioscouri.com",
+            "homepage": "http://dioscouri.com",
             "role": "Developer"
         }
-
     ],
     "require": {
         "php": ">=5.4.0",
         "dioscouri/f3-lib": "dev-master",
-        "dioscouri/f3-users": "dev-master",
         "stripe/stripe-php": "dev-master"
     },
     "autoload": {
-         "psr-4": {
-            "Dsc\\Stripe\\": "src/"
+         "psr-0": {
+            "Striper\\": "src/"
         }
     }    
 }
