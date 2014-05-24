@@ -5,20 +5,32 @@ class Listener extends \Prefab
 {
     public function onSystemRebuildMenu( $event )
     {
-        if ($mapper = $event->getArgument('mapper')) 
+        if ($model = $event->getArgument('model'))
         {
-        	$mapper->reset();
-        	$mapper->priority = 50;
-        	$mapper->title = 'Stripe';
-        	$mapper->base = '/admin/stripe';
-        	$mapper->route = '';
-        	$mapper->icon = 'fa fa-money';
-        	$mapper->children = array(
-        	        json_decode(json_encode(array( 'title'=>'Settings', 'route'=>'/admin/stripe/settings', 'icon'=>'fa fa-cogs' )))
-        	);
-        	$mapper->save();
-        	
-        	\Dsc\System::instance()->addMessage('Mailer added its admin menu items.');
+            $root = $event->getArgument('root');
+            $app = clone $model;
+        
+            $app->insert(array(
+                'type' => 'admin.nav',
+                'priority' => 50,
+                'title' => 'Stripe',
+                'icon' => 'fa fa-money',
+                'is_root' => false,
+                'tree' => $root,
+                'base' => '/admin/stripe'
+            ));
+        
+            $children = array(
+                array(
+                    'title' => 'Settings',
+                    'route' => '/admin/stripe/settings',
+                    'icon' => 'fa fa-cogs'
+                ),
+            );
+        
+            $app->addChildren($children, $root);
+        
+            \Dsc\System::instance()->addMessage('Stripe added its admin menu items.');
         }
         
     }
