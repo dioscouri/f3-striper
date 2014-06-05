@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-md-2">
     
-        <h3>Details</h3>
-        <p class="help-block">Details about this payment Request</p>
+        <h3>Required</h3>
                 
     </div>
     <!-- /.col-md-2 -->
@@ -11,11 +10,6 @@
     
         <div class="form-group">
             <div class="row">
-                <div class="col-md-9">
-                    <label>Invoice Number</label>
-                    <input type="text" name="number" value="<?php echo $flash->old('number'); ?>" class="form-control" />
-                    <p class="help-block">This determines the page's URL<?php if ($flash->old('number')) { ?>, which is currently <a target="_blank" href="./striper/paymentrequest/number/<?php echo $flash->old('number'); ?>">/striper/paymentrequest/number/<?php echo $flash->old('number'); ?></a><?php } ?>
-                </div>
                 <div class="col-md-3">
                     <label>Amount</label>
                     <input type="text" name="amount" value="<?php echo $flash->old('amount'); ?>" class="form-control" />
@@ -23,6 +17,33 @@
             </div>        
         </div>
         <!-- /.form-group -->
+        
+    </div>
+    
+</div>
+    
+<hr />
+
+<div class="row">
+    <div class="col-md-2">
+    
+        <h3>Optional</h3>
+        <p class="help-block">Details about this payment Request</p>
+                
+    </div>
+    <!-- /.col-md-2 -->
+                
+    <div class="col-md-10">
+    
+        <div class="form-group">
+            <label>Invoice Number</label>
+            <input type="text" name="number" value="<?php echo $flash->old('number'); ?>" class="form-control" />
+            <p class="help-block">Use your invoice number to create a custom URL<?php if ($flash->old('number')) { ?>, which is currently <a target="_blank" href="./striper/paymentrequest/number/<?php echo $flash->old('number'); ?>">/striper/paymentrequest/number/<?php echo $flash->old('number'); ?></a><?php } ?>
+            <?php if ($flash->old('_id')) { ?><p class="help-block">Otherwise, your URL is: <a target="_blank" href="./striper/paymentrequest/<?php echo $flash->old('_id'); ?>">/striper/paymentrequest/<?php echo $flash->old('_id'); ?></a><?php } ?>
+        </div>
+        <!-- /.form-group -->
+        
+        <hr />
     
         <div class="form-group">
             <label>Title</label>
@@ -36,11 +57,13 @@
             <p class="help-block">This is for internal use only.</p>
         </div>
         <!-- /.form-group -->
+        
+        <hr />
        
         <div class="form-group">
             <label>Message to Client</label>
-            <textarea name="copy" class="form-control wysiwyg"><?php echo $flash->old('copy'); ?></textarea>
             <p class="help-block">This is displayed to the client making the payment.</p>
+            <textarea name="copy" class="form-control wysiwyg"><?php echo $flash->old('copy'); ?></textarea>            
         </div>
         <!-- /.form-group -->
             
