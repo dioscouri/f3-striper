@@ -3,6 +3,7 @@ namespace Striper\Site;
 
 class Routes extends \Dsc\Routes\Group
 {
+
     public function initialize()
     {
         $this->setDefaults(array(
@@ -10,19 +11,19 @@ class Routes extends \Dsc\Routes\Group
             'url_prefix' => '/striper'
         ));
         
-        $this->add( '/paymentrequest/@id', 'GET', array(
-        		'controller' => 'PaymentRequests',
-        		'action' => 'index'
-        ) );
+        $this->add('/paymentrequest/@id', 'GET', array(
+            'controller' => 'PaymentRequest',
+            'action' => 'read'
+        ));
         
-        $this->add( '/paymentrequest/number/@number', 'GET', array(
-        		'controller' => 'PaymentRequests',
-        		'action' => 'index'
-        ) );
+        $this->add('/paymentrequest/number/@number', 'GET', array(
+            'controller' => 'PaymentRequest',
+            'action' => 'read'
+        ));
         
-        $this->add( '/paymentrequest/charge/@id', 'POST', array(
-        		'controller' => 'PaymentRequests',
-        		'action' => 'charge'
-        ) );
+        $this->add('/paymentrequest/charge/@id', 'POST', array(
+            'controller' => 'PaymentRequest',
+            'action' => 'charge'
+        ));
     }
 }
