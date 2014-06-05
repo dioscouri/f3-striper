@@ -17,13 +17,18 @@ class Listener extends \Prefab
                 'icon' => 'fa fa-money',
                 'is_root' => false,
                 'tree' => $root,
-                'base' => '/admin/stripe'
+                'base' => '/admin/striper'
             ));
         
             $children = array(
+            	array(
+            				'title' => 'Payment Requests',
+            				'route' => '/admin/striper/paymentrequests',
+            				'icon' => 'fa fa-cogs'
+            	),
                 array(
                     'title' => 'Settings',
-                    'route' => '/admin/stripe/settings',
+                    'route' => '/admin/striper/settings',
                     'icon' => 'fa fa-cogs'
                 ),
             );
