@@ -1,12 +1,11 @@
 <?php
 namespace Striper\Models;
 
-class PaymentRequests extends \Dsc\Mongo\Collections\Taggable
+class PaymentRequests extends \Dsc\Mongo\Collections\Describable
 {
- 	var $title = '';
- 	var $client = array();
- 	var $items = array();
- 	
+ 	public $client = array();
+ 	public $items = array();
+ 	public $copy = null;
    
     protected $__collection_name = 'striper.paymentrequests';
     protected $__type = 'striper.paymentrequests';

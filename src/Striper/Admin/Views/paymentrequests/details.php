@@ -22,7 +22,20 @@
         </div>
         <!-- /.form-group -->
        
-    
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" class="form-control"><?php echo $flash->old('description'); ?></textarea>
+            <p class="help-block">This is for internal use only.</p>
+        </div>
+        <!-- /.form-group -->
+       
+        <div class="form-group">
+            <label>Message to Client</label>
+            <textarea name="copy" class="form-control wysiwyg"><?php echo $flash->old('copy'); ?></textarea>
+            <p class="help-block">This is displayed to the client making the payment.</p>
+        </div>
+        <!-- /.form-group -->
+            
     </div>
     <!-- /.col-md-10 -->
 </div>

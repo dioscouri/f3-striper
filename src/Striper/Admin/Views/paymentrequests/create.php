@@ -1,3 +1,10 @@
+<script src="./ckeditor/ckeditor.js"></script>
+<script>
+jQuery(document).ready(function(){
+    CKEDITOR.replaceAll( 'wysiwyg' );    
+});
+</script>
+
 <div class="well">
 
 <form id="detail-form" class="form" method="post">
