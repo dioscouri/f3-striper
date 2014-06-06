@@ -26,11 +26,22 @@ class Listener extends \Prefab
             				'route' => '/admin/striper/paymentrequests',
             				'icon' => 'fa fa-cogs'
             	),
+            	array(
+            				'title' => 'Plans',
+            				'route' => '/admin/striper/plans',
+            				'icon' => 'fa fa-cogs'
+            		),
+            	array(
+            				'title' => 'Subscriptions',
+            				'route' => '/admin/striper/subscriptions',
+            				'icon' => 'fa fa-cogs'
+            	),
                 array(
                     'title' => 'Settings',
                     'route' => '/admin/striper/settings',
                     'icon' => 'fa fa-cogs'
                 ),
+            		
             );
         
             $app->addChildren($children, $root);

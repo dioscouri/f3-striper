@@ -1,21 +1,20 @@
 <?php
 namespace Striper\Models;
 
-class PaymentRequests extends \Dsc\Mongo\Collections\Describable
+class Subscriptions extends \Dsc\Mongo\Collections\Describable
 {
     public $amount = null;
  	public $client = array();
  	public $items = array();
  	public $copy = null;
    
-    protected $__collection_name = 'striper.paymentrequests';
-    protected $__type = 'striper.paymentrequests';
+    protected $__collection_name = 'striper.subscriptions';
+    protected $__type = 'striper.subscriptions';
 
     protected function fetchConditions()
     {
         parent::fetchConditions();
 
-        
        
             
         return $this;

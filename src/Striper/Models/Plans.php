@@ -1,15 +1,14 @@
 <?php
 namespace Striper\Models;
 
-class PaymentRequests extends \Dsc\Mongo\Collections\Describable
+class Plans extends \Dsc\Mongo\Collections\Describable
 {
-    public $amount = null;
- 	public $client = array();
- 	public $items = array();
- 	public $copy = null;
+    public $stripe = array();
+ 	public $site = array();
+ 	
    
-    protected $__collection_name = 'striper.paymentrequests';
-    protected $__type = 'striper.paymentrequests';
+    protected $__collection_name = 'striper.plans';
+    protected $__type = 'striper.plans';
 
     protected function fetchConditions()
     {
@@ -24,7 +23,7 @@ class PaymentRequests extends \Dsc\Mongo\Collections\Describable
     
     public function amount()
     {
-        $amount = $this->amount;
+        $amount = $this->{'stripe.amount'};
         
         // TODO ensure that the $amount value is a float, if necessary, 
         // and if a decimal is present, convert it to whatever format stripe requires
@@ -34,7 +33,7 @@ class PaymentRequests extends \Dsc\Mongo\Collections\Describable
     
     public function amountForStripe()
     {
-        $amount = $this->amount;
+         $amount = $this->{'stripe.amount'};
     
         // ensure that the $amount value is a float, if necessary,
         // and if a decimal is present, convert it to whatever format stripe requires
@@ -68,16 +67,7 @@ class PaymentRequests extends \Dsc\Mongo\Collections\Describable
 
     protected function beforeSave()
     {
-        $this->amount = (float) $this->amount;
-        
-        foreach ($this->items as $key=>$item) 
-        {
-        	if (empty($item['description']) && empty($item['quantity']) && empty($item['rate'])) 
-        	{
-        		unset($this->items[$key]);
-        	}
-        }
-        $this->items = array_values($this->items);
+        $this->{'stripe.amount'} = (float) $this->{'stripe.amount'};
         
         return parent::beforeSave();
     }

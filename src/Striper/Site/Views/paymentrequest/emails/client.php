@@ -1,0 +1,1 @@
+You successfully paid {{amount}}, to {{company}}

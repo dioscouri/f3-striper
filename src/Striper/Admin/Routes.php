@@ -10,6 +10,8 @@ class Routes extends \Dsc\Routes\Group
             'url_prefix' => '/admin/striper'
         ));
         
+        $this->addCrudGroup( 'Plans', 'Plan' );
+        $this->addCrudGroup( 'Subscriptions', 'Subscription' );
         $this->addCrudGroup( 'PaymentRequests', 'PaymentRequest' );
        
         $this->addSettingsRoutes();

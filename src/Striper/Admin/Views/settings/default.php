@@ -12,7 +12,13 @@
         <div class="col-lg-2 col-md-3 col-sm-4">
             <ul class="nav nav-pills nav-stacked">
                 <li class="active">
-                    <a href="#tab-general" data-toggle="tab"> General Settings </a>
+                    <a href="#tab-general" data-toggle="tab"> Stripe Settings </a>
+                </li>         
+                <li>
+                    <a href="#tab-company" data-toggle="tab"> Company Settings </a>
+                </li>
+                <li>
+                    <a href="#tab-email" data-toggle="tab"> Email Settings </a>
                 </li>
             </ul>
         </div>
@@ -22,7 +28,7 @@
             <div class="tab-content stacked-content">
 
                 <div class="tab-pane fade in active" id="tab-general">
-                    <h4>General Settings</h4>
+                    <h4>Stripe Settings</h4>
                     
                     <hr />
 
@@ -70,8 +76,19 @@
                     </div>
                     <!-- /.form-group -->
                     
-                </div>                
+                </div>   
+                             
+                <div class="tab-pane fade in" id="tab-company">
                 
+                    <?php echo $this->renderLayout('Striper/Admin/Views::settings/company.php'); ?>
+
+                </div>
+                
+                <div class="tab-pane fade in" id="tab-email">
+                
+                    <?php echo $this->renderLayout('Striper/Admin/Views::settings/emails.php'); ?>
+
+                </div>
             </div>
 
         </div>

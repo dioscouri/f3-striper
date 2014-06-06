@@ -54,28 +54,31 @@ class PaymentRequest extends \Dsc\Controller
     public function charge()
     {
         $id = $this->inputfilter->clean($this->app->get('PARAMS.id'), 'alnum');
-        $request = $model = $this->getModel()->setState('filter.id', $id);
+    
+        $request = $this->getModel()->setState('filter.id', $id)->getItem();
         $settings = \Striper\Models\Settings::fetch();
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here https://manage.stripe.com/account
-        \Stripe::setApiKey($settings->{$settings->mode . '.secret_key'});
+        \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
         
         // Get the credit card token submitted by the form
-        $token = $this->inputfilter->clean($_POST['stripeToken'], 'string');
+        $token = $this->inputfilter->clean($this->app->get('POST.stripeToken'), 'string');
         
         // Create the charge on Stripe's servers - this will charge the user's card
         try
         {
             $charge = \Stripe_Charge::create(array(
-                "amount" => $request->getTotal(), // amount in cents, again
+                "amount" => $request->amountForStripe(), // amount in cents, again
                 "currency" => "usd",
                 "card" => $token,
-                "description" => "payinguser@example.com"
+                "description" => $request->{'client.email'}
             ));
             // this needs to be created empty in model
+          
             $request->acceptPayment($charge);
-            
             // SEND email to the client
+            $request->sendChargeEmailClient($charge);
+            $request->sendChargeEmailAdmin($charge);
             
             $this->app->set('charge', $charge);
             $this->app->set('paymentrequest', $request);

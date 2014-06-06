@@ -25,5 +25,19 @@ class Routes extends \Dsc\Routes\Group
             'controller' => 'PaymentRequest',
             'action' => 'charge'
         ));
+
+        $this->add('/subscription/@id', 'GET', array(
+            'controller' => 'Subscription',
+            'action' => 'read'
+        ));
+        
+        $this->add('/subscription/number/@number', 'GET', array(
+            'controller' => 'Subscription',
+            'action' => 'read'
+        ));
+         $this->add('/subscription/charge/@id', 'POST', array(
+            'controller' => 'Subscription',
+            'action' => 'charge'
+        ));
     }
 }
