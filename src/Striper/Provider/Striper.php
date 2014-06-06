@@ -1,6 +1,6 @@
 <?php
 
-namespace Stripper\Provider;
+namespace Striper\Provider;
 /**
  * Striper provider adapter based on OAuth2 protocol
  * 
