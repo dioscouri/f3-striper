@@ -120,12 +120,15 @@ class Plan extends \Admin\Controllers\BaseAuth
         // save
         try {
             $values = $data;
-        
+		        
             $create = array_filter($values['stripe']);
         
             //make a method for this, convert float to cents
             $create['amount'] = (int) $create['amount']*100;
-
+	   $settings = \Striper\Models\Settings::fetch();
+        // Set your secret key: remember to change this to your live secret key in production
+        // See your keys here https://manage.stripe.com/account
+        \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});	
             $plan = \Stripe_Plan::create($create);
 			
             

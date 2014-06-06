@@ -28,8 +28,8 @@
             <?php } ?>
             
             <?php if (!empty($plan)) { ?>
-              I agree to the charges of <?php setlocale(LC_MONETARY, 'en_US');
-echo money_format('%i', number_format(($plan->amount/100),2));?>/<?php echo $plan->interval; ?>
+              I agree to the charges of <?php setlocale(LC_MONETARY, 'en_US.UTF-8');
+echo money_format('$%i', number_format(($plan->amount/100),2));?>/<?php echo $plan->interval; ?>
             <?php } ?>
             
         

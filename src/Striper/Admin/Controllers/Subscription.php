@@ -13,7 +13,7 @@ class Subscription extends \Admin\Controllers\BaseAuth
     
     protected function getModel() 
     {
-        $model = new \Striper\Models\subscriptions;
+        $model = new \Striper\Models\Subscriptions;
         return $model; 
     }
     
