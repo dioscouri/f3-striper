@@ -48,9 +48,10 @@ echo money_format('%i', number_format(($plan->amount/100),2));?>/<?php echo $pla
         <p>
             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
             data-key="<?php echo $settings->{$settings->mode.'.publishable_key'} ?>"
-            data-image="/square-image.png" 
+            data-image="/theme/img/logo.png" 
             data-name="<?php echo $subscription->title; ?>" 
-            data-description="" 
+            data-description="charges of <?php setlocale(LC_MONETARY, 'en_US');
+echo money_format('%i', number_format(($plan->amount/100),2));?>/<?php echo $plan->interval; ?>" 
             data-email="<?php echo $subscription->{'client.email'}; ?>" 
             data-allow-remember-me="false" 
             data-amount="<?php echo $plan->amount ?>">

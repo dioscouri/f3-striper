@@ -13,7 +13,11 @@ class Routes extends \Dsc\Routes\Group
         $this->addCrudGroup( 'Plans', 'Plan' );
         $this->addCrudGroup( 'Subscriptions', 'Subscription' );
         $this->addCrudGroup( 'PaymentRequests', 'PaymentRequest' );
-       
+        $this->add( '/events', 'GET', array(
+        		'controller' => 'Events',
+        		'action' => 'index'
+        ) );
+        
         $this->addSettingsRoutes();
     }
 }

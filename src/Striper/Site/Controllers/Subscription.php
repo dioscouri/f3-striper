@@ -44,17 +44,23 @@ class Subscription extends \Dsc\Controller
             $this->app->reroute('/');
             return;
         }
-        
-        $this->app->set('meta.title', $subscription->title);
         $this->app->set('subscription', $subscription);
+        if(empty($subscription->subscriber)) {
+        $this->app->set('meta.title', $subscription->title);
+        
         $settings = \Striper\Models\Settings::fetch();
         // Set your secret key: remember to change this to your live secret key in production
         // See your keys here https://manage.stripe.com/account
-        \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
+        
         $this->app->set('plan', \Stripe_Plan::retrieve($subscription->{'plan'}));
         $this->app->set('settings', $settings);
         
         echo $this->theme->render('Striper/Site/Views::subscription/read.php');
+        } else {
+        echo $this->theme->render('Striper/Site/Views::subscription/alreadypaid.php');
+        }
+      	
+        
     }
 
     
@@ -62,43 +68,50 @@ class Subscription extends \Dsc\Controller
     {
         $id = $this->inputfilter->clean($this->app->get('PARAMS.id'), 'alnum');
     
-        $request = $this->getModel()->setState('filter.id', $id)->getItem();
-        $settings = \Striper\Models\Settings::fetch();
-        // Set your secret key: remember to change this to your live secret key in production
-        // See your keys here https://manage.stripe.com/account
-        \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
+        $subscription = $this->getModel()->setState('filter.id', $id)->getItem();
         
         // Get the credit card token submitted by the form
         $token = $this->inputfilter->clean($this->app->get('POST.stripeToken'), 'string');
+        $email = $this->inputfilter->clean($this->app->get('POST.stripeEmail'), 'string');
         
         // Create the charge on Stripe's servers - this will charge the user's card
         try
-        {
-            $charge = \Stripe_Charge::create(array(
-                "amount" => $request->amountForStripe(), // amount in cents, again
-                "currency" => "usd",
-                "card" => $token,
-                "description" => $request->{'client.email'}
-            ));
+        {	
+        	//create a stripe user 
+        	$user = \Stripe_Customer::create(array(
+			  "description" => "Customer for ".$email,
+			  "email" => $email,
+			  "card" => $token // obtained with Stripe.js
+			));
+        	$user->subscriptions->create(array("plan" => $subscription->plan));
+        	
             // this needs to be created empty in model
           
-            $request->acceptPayment($charge);
+            $subscription->set('subscriber.id',  $user->id );
+            $subscription->set('subscriber.email',   $user->email );
+            $subscription->set('client.email', $email );
+            $subscription->save();
             // SEND email to the client
-            $request->sendChargeEmailClient($charge);
-            $request->sendChargeEmailAdmin($charge);
             
-            $this->app->set('charge', $charge);
-            $this->app->set('paymentrequest', $request);
+            $this->app->set('subscription', $subscription);
+            $this->app->set('plan', \Stripe_Plan::retrieve($subscription->{'plan'}));
+            
+            $subscription->sendChargeEmailClient($subscription);
+            $subscription->sendChargeEmailAdmin($subscription);
+            
+           
+            
             
             $view = \Dsc\System::instance()->get('theme');
-            echo $view->render('Striper/Site/Views::subscriptions/success.php');
+            echo $view->render('Striper/Site/Views::subscription/success.php');
         }
         catch (\Stripe_CardError $e)
         {
+            //set error message
             
             // The card has been declined
             $view = \Dsc\System::instance()->get('theme');
-            echo $view->render('Striper/Site/Views::subscriptions/index.php');
+            echo $view->render('Striper/Site/Views::subscription/index.php');
         }
     }
 }

@@ -120,22 +120,17 @@ class Plan extends \Admin\Controllers\BaseAuth
         // save
         try {
             $values = $data;
-            $settings = \Striper\Models\Settings::fetch();
-            \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
         
             $create = array_filter($values['stripe']);
         
-            //make a model for this
-            $create['stripe']['amount'] = (int) $create['stripe']['amount']*100;
+            //make a method for this, convert float to cents
+            $create['amount'] = (int) $create['amount']*100;
 
             $plan = \Stripe_Plan::create($create);
-
-               if($plan) {
-                 //if it failed it throw an exception
-                $values['site']['api'] = 'success';
-               }
+			
             
-
+           
+            $values['stripe'] = array('id'=>$plan->id, 'name'=>$plan->name, 'created' => $plan->created);
             unset($values['submitType']);
             //\Dsc\System::instance()->addMessage(\Dsc\Debug::dump($values), 'warning');
             $this->item = $model->create($values);

@@ -10,6 +10,10 @@ class Routes extends \Dsc\Routes\Group
             'namespace' => '\Striper\Site\Controllers',
             'url_prefix' => '/striper'
         ));
+        $this->add('/webhooks', 'POST', array(
+            'controller' => 'Webhooks',
+            'action' => 'receive'
+        ));
         
         $this->add('/paymentrequest/@id', 'GET', array(
             'controller' => 'PaymentRequest',

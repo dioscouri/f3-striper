@@ -36,6 +36,11 @@ class Listener extends \Prefab
             				'route' => '/admin/striper/subscriptions',
             				'icon' => 'fa fa-cogs'
             	),
+            	array(
+            				'title' => 'Events',
+            				'route' => '/admin/striper/events',
+            				'icon' => 'fa fa-cogs'
+            	),
                 array(
                     'title' => 'Settings',
                     'route' => '/admin/striper/settings',
