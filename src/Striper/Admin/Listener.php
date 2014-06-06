@@ -55,4 +55,20 @@ class Listener extends \Prefab
         }
         
     }
+    
+    
+    public function onDisplaySettingsUsers($event){
+        $item = $event->getArgument('item');
+        $tabs = $event->getArgument('tabs');
+        $content = $event->getArgument('content');
+        
+        \Base::instance()->set('item', $item);
+        $view = \Dsc\System::instance()->get('theme');
+        
+        $tabs['striper'] = 'Striper';
+        $content['striper'] = $view->renderLayout('Striper/Admin/Views::listeners/users.php');
+        
+        $event->setArgument('tabs', $tabs);
+        $event->setArgument('content', $content);
+    }
 }
