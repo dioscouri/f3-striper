@@ -46,7 +46,9 @@
             <?php if (!empty($paymentrequest->amount())) { ?>
                 <?php // TODO Format this so it looks like currency ?>
                     <h3>
-                        Total: <?php echo $paymentrequest->amount(); ?>
+                        Total: <?php setlocale(LC_MONETARY, 'en_US.UTF-8');
+echo money_format('$%i', number_format(($paymentrequest->amount()/100),2));?>
+                       
                     </h3>
             <?php } ?>
         </div>
@@ -56,7 +58,10 @@
     <form action="./striper/paymentrequest/charge/<?php echo $paymentrequest->id ?>" method="post">
         <?php // TODO Replate this with a normal credit card input form rather than the Stripe lightbox, no? that's what all the jQuery.validate below is assuming... ?>
         <p>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<?php echo $settings->{$settings->mode.'.publishable_key'} ?>" data-image="/square-image.png" data-name="<?php echo $paymentrequest->title; ?>" data-description="" data-email="<?php echo $paymentrequest->{'client.email'}; ?>" data-allow-remember-me="false" data-amount="<?php echo $paymentrequest->amountForStripe(); ?>"></script>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
+            data-key="<?php echo $settings->{$settings->mode.'.publishable_key'} ?>"
+               data-image="/theme/img/logo.png"
+              data-name="<?php echo $paymentrequest->title; ?>" data-description="" data-email="<?php echo $paymentrequest->{'client.email'}; ?>" data-allow-remember-me="false" data-amount="<?php echo $paymentrequest->amountForStripe(); ?>"></script>
         </p>
     </form>
 
