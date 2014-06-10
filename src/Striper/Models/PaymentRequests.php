@@ -84,11 +84,18 @@ class PaymentRequests extends \Dsc\Mongo\Collections\Describable
     
     public function sendChargeEmailClient($charge){
     	
-     \Dsc\System::instance()->get('mailer')->send($this->{'client.email'}, $subject, array($html, $text) );
+      $html = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/client_success_html.php' );
+     $text = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/client_success_text.php' );
+         	
+     \Dsc\System::instance()->get('mailer')->send($charge->{'client.email'}, 'Successfully Subscribed', array($html, $text) );
     	 
     }
     
     public function sendChargeEmailAdmin($charge){
+    	$html = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/admin_success_html.php' );
+    	$text = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/admin_success_text.php' );
+    	
+    	\Dsc\System::instance()->get('mailer')->send($charge->{'client.email'}, 'Successfully Subscribed', array($html, $text) );
     	 
     }
     
