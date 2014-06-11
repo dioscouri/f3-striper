@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <label>Amount</label>
-                    <input type="number" name="stripe[amount]" value="<?php echo $flash->old('stripe.amount'); ?>" class="form-control" />
+                    <input type="number" name="stripe[amount]" value="<?php echo $flash->old('stripe.amount'); ?>" class="form-control" /> // in cents (ie $20.00 == 2000)
                 	<p class="help-block">A positive integer in cents (or 0 for a free plan) representing how much to charge (on a recurring basis).</p>
                 	
                 </div> 

@@ -43,6 +43,32 @@ class Plans extends \Dsc\Mongo\Collections\Describable
     
         return $amount;
     }
+
+    public static function planDescription($plan)
+    {   
+        $amount = money_format('$%i', number_format(( $plan->amount/100),2));
+        $interval = $plan->interval;
+        $interval_count = $plan->interval_count;
+        $string = $amount;
+        if($interval_count > 1) {
+            $string .= ' every ' .$interval_count ;
+            switch ($interval) {
+                case 'week':
+                    $string .= ' weeks. ';
+                    break;
+                case 'month':
+                    $string .= ' months ';
+                    break;
+                case 'year':
+                    $string .= ' years ';
+                    break;    
+            }
+        } else {
+            $string .= '/'.$interval;
+        }
+
+        return $string;
+    }
     
     
     public function  acceptPayment($charge) {

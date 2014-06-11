@@ -124,16 +124,16 @@ class Plan extends \Admin\Controllers\BaseAuth
             $create = array_filter($values['stripe']);
         
             //make a method for this, convert float to cents
-            $create['amount'] = (int) $create['amount']*100;
-	   $settings = \Striper\Models\Settings::fetch();
-        // Set your secret key: remember to change this to your live secret key in production
-        // See your keys here https://manage.stripe.com/account
-        \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});	
-            $plan = \Stripe_Plan::create($create);
-			
+            $create['amount'] = (int) $create['amount'];
+
+            $settings = \Striper\Models\Settings::fetch();
+	        // Set your secret key: remember to change this to your live secret key in production
+	        // See your keys here https://manage.stripe.com/account
+	        \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});	
             
-           
-            $values['stripe'] = array('id'=>$plan->id, 'name'=>$plan->name, 'created' => $plan->created);
+        	$plan = \Stripe_Plan::create($create);
+			        
+            $values['stripe'] = array('id'=>$plan->id, 'name'=>$plan->name, 'created' => $plan->created,  'amount' => $plan->amount, 'interval' => $plan->interval, 'currency' => $plan->currency, 'interval_count' => $plan->interval_count, 'trial_period_days' => $plan->trial_period_days);
             unset($values['submitType']);
             //\Dsc\System::instance()->addMessage(\Dsc\Debug::dump($values), 'warning');
             $this->item = $model->create($values);
