@@ -68,7 +68,7 @@ class PaymentRequests extends \Dsc\Mongo\Collections\Describable
 
     protected function beforeSave()
     {
-        $this->amount = (float) $this->amount;
+        //$this->amount = (float) $this->amount;
         
         foreach ($this->items as $key=>$item) 
         {
@@ -84,18 +84,18 @@ class PaymentRequests extends \Dsc\Mongo\Collections\Describable
     
     public function sendChargeEmailClient($charge){
     	
-      $html = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/client_success_html.php' );
-      $text = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/client_success_text.php' );
+     // $html = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/client_success_html.php' );
+     // $text = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/client_success_text.php' );
          	
-     \Dsc\System::instance()->get('mailer')->send($charge->{'client.email'}, 'Successfully Subscribed', array($html, $text) );
+     //\Dsc\System::instance()->get('mailer')->send($charge->{'client.email'}, 'Successfully Subscribed', array($html, $text) );
     	 
     }
     
     public function sendChargeEmailAdmin($charge){
-    	$html = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/admin_success_html.php' );
-    	$text = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/admin_success_text.php' );
+    //	$html = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/admin_success_html.php' );
+    //	$text = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::paymentrequests/emails/admin_success_text.php' );
     	
-    	\Dsc\System::instance()->get('mailer')->send($charge->{'client.email'}, 'Successfully Subscribed', array($html, $text) );
+    //	\Dsc\System::instance()->get('mailer')->send($charge->{'client.email'}, 'Successfully Subscribed', array($html, $text) );
     	 
     }
     

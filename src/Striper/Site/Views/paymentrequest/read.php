@@ -43,11 +43,12 @@
             <?php } ?>
             
         
-            <?php if (!empty($paymentrequest->amount())) { ?>
+            <?php if (!empty($paymentrequest->amount)) { ?>
                 <?php // TODO Format this so it looks like currency ?>
                     <h3>
                         Total: <?php setlocale(LC_MONETARY, 'en_US.UTF-8');
-echo money_format('$%i', number_format(($paymentrequest->amount()/100),2));?>
+                        echo '$'. number_format(($paymentrequest->amount/100),2);?>
+
                        
                     </h3>
             <?php } ?>
@@ -61,7 +62,7 @@ echo money_format('$%i', number_format(($paymentrequest->amount()/100),2));?>
             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" 
             data-key="<?php echo $settings->{$settings->mode.'.publishable_key'} ?>"
                data-image="/theme/img/logo.png"
-              data-name="<?php echo $paymentrequest->title; ?>" data-description="" data-email="<?php echo $paymentrequest->{'client.email'}; ?>" data-allow-remember-me="false" data-amount="<?php echo $paymentrequest->amountForStripe(); ?>"></script>
+              data-name="<?php echo $paymentrequest->title; ?>" data-description="" data-email="<?php echo $paymentrequest->{'client.email'}; ?>" data-allow-remember-me="false" data-amount="<?php echo $paymentrequest->amount; ?>"></script>
         </p>
     </form>
 
