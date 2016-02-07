@@ -15,6 +15,11 @@ class Routes extends \Dsc\Routes\Group
             'action' => 'receive'
         ));
         
+        $this->add('/connect', 'GET|POST', array(
+        		'controller' => 'Connect',
+        		'action' => 'connect'
+        ));
+        
         $this->add('/paymentrequest/@id', 'GET', array(
             'controller' => 'PaymentRequest',
             'action' => 'read'
@@ -43,5 +48,15 @@ class Routes extends \Dsc\Routes\Group
             'controller' => 'Subscription',
             'action' => 'charge'
         ));
+         $this->add('/subscription/cancel/@id', 'GET', array(
+         		'controller' => 'Subscription',
+         		'action' => 'cancel'
+         ));
+         
+         $this->add('/account/payment/connect', 'POST', array(
+         		'controller' => 'Connect',
+         		'action' => 'connect'
+         ));
+         
     }
 }

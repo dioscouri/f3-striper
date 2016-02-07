@@ -82,6 +82,8 @@ class Subscriptions extends \Dsc\Mongo\Collections\Describable
     
     public function sendChargeEmailClient($charge){
    
+    	\Base::instance()->set('charge', $charge);
+    	
      $html = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::subscription/emails/client_success_html.php' );
      $text = \Dsc\System::instance()->get( 'theme' )->renderView( 'Striper/Site/Views::subscription/emails/client_success_text.php' );
          	

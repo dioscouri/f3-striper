@@ -78,7 +78,7 @@ class Subscription extends \Dsc\Controller
         try
         {	
         	//create a stripe user 
-        	$user = \Stripe_Customer::create(array(
+        	$user = \Stripe\Customer::create(array(
 			  "description" => "Customer for ".$email,
 			  "email" => $email,
 			  "card" => $token // obtained with Stripe.js
@@ -94,10 +94,10 @@ class Subscription extends \Dsc\Controller
             // SEND email to the client
             
             $this->app->set('subscription', $subscription);
-            $this->app->set('plan', \Stripe_Plan::retrieve($subscription->{'plan'}));
+            $this->app->set('plan', \Stripe\Plan::retrieve($subscription->{'plan'}));
             
-            $subscription->sendChargeEmailClient($subscription);
-            $subscription->sendChargeEmailAdmin($subscription);
+           // $subscription->sendChargeEmailClient($subscription);
+            //$subscription->sendChargeEmailAdmin($subscription);
             
            
             
@@ -105,7 +105,7 @@ class Subscription extends \Dsc\Controller
             $view = \Dsc\System::instance()->get('theme');
             echo $view->render('Striper/Site/Views::subscription/success.php');
         }
-        catch (\Stripe_CardError $e)
+        catch (\Stripe\CardError $e)
         {
             //set error message
             
@@ -113,5 +113,25 @@ class Subscription extends \Dsc\Controller
             $view = \Dsc\System::instance()->get('theme');
             echo $view->render('Striper/Site/Views::subscription/index.php');
         }
+    }
+    
+    
+    public function cancel() {
+    	
+    	$this->requireIdentity();
+    	
+    	$user = $this->getIdentity();
+    	if($user->{'stripe.customer.id'}) {
+    		$customer = \Stripe\Customer::retrieve($user->{'stripe.customer.id'});
+    		$subscription = $customer->subscriptions->retrieve($this->app->get('PARAMS.id'));
+    		$subscription->cancel();
+    		\Dsc\System::instance()->addMessage("Plan Deleted", 'success');
+    		
+    	} else {
+    		\Dsc\System::instance()->addMessage("Somthing went wrong", 'error');
+    	}
+    	
+    	$this->app->reroute('/account/subscriptions');
+    	
     }
 }

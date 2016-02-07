@@ -14,6 +14,11 @@
             <input type="text" name="title" placeholder="Name" value="<?php echo $flash->old('title'); ?>" class="form-control" />
         </div>
         <!-- /.form-group -->
+         <div class="form-group">
+            <label>Description</label>
+            <input type="text" name="description" placeholder="" value="<?php echo $flash->old('description'); ?>" class="form-control" />
+        </div>
+        <!-- /.form-group -->
 
          <div class="form-group">
             <div class="row">

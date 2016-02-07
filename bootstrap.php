@@ -10,7 +10,7 @@ class StriperBootstrap extends \Dsc\Bootstrap
     	$settings = \Striper\Models\Settings::fetch();
     	// Set your secret key: remember to change this to your live secret key in production
     	// See your keys here https://manage.stripe.com/account
-    	\Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
+    	\Stripe\Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
         \Dsc\System::instance()->get('theme')->registerViewPath($this->dir .'/src/Striper/Site/Views', 'Striper/Site/Views' );
 
     	parent::runAdmin();
@@ -22,7 +22,7 @@ class StriperBootstrap extends \Dsc\Bootstrap
     	$settings = \Striper\Models\Settings::fetch();
     	// Set your secret key: remember to change this to your live secret key in production
     	// See your keys here https://manage.stripe.com/account
-    	\Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
+    	\Stripe\Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});
     	parent::runSite();
     }
 }
