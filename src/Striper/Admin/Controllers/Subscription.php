@@ -78,14 +78,7 @@ class Subscription extends \Admin\Controllers\BaseAuth
 
         $item = $this->getItem();
         
-        /*$model = new \Striper\Models\Categories;
-        $categories = $model->getList();
-        \Base::instance()->set('categories', $categories );
-        \Base::instance()->set('selected', 'null' );
         
-        $all_tags = $this->getModel()->getTags();
-        \Base::instance()->set('all_tags', $all_tags );
-        */
         $this->app->set('meta.title', 'Edit Payment Request');
         $this->app->set( 'allow_preview', $this->canPreview( true ) );
         

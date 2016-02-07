@@ -129,9 +129,9 @@ class Plan extends \Admin\Controllers\BaseAuth
             $settings = \Striper\Models\Settings::fetch();
 	        // Set your secret key: remember to change this to your live secret key in production
 	        // See your keys here https://manage.stripe.com/account
-	        \Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});	
+	        \Stripe\Stripe::setApiKey($settings->{$settings->mode.'.secret_key'});	
             
-        	$plan = \Stripe_Plan::create($create);
+        	$plan = \Stripe\Plan::create($create);
 			        
             $values['stripe'] = array('id'=>$plan->id, 'name'=>$plan->name, 'created' => $plan->created,  'amount' => $plan->amount, 'interval' => $plan->interval, 'currency' => $plan->currency, 'interval_count' => $plan->interval_count, 'trial_period_days' => $plan->trial_period_days);
             unset($values['submitType']);

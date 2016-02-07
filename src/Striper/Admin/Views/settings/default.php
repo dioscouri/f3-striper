@@ -76,6 +76,22 @@
                     </div>
                     <!-- /.form-group -->
                     
+                     <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>CONNECT API KEYS DEVELOPMENT</label>
+                                <input name="test[client_id]" placeholder="" value="<?php echo $flash->old('test.client_id'); ?>" class="form-control" type="text" />
+                            </div>
+                            <div class="col-md-6">
+                                <label>CONNECT API KEYS PRODUCTION</label>
+                                <input name="live[client_id]" placeholder="" value="<?php echo $flash->old('live.client_id'); ?>" class="form-control" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.form-group -->
+                    
+                   
+                    
                 </div>   
                              
                 <div class="tab-pane fade in" id="tab-company">
